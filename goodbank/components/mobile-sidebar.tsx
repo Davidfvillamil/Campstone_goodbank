@@ -12,7 +12,7 @@ const MobileSidebar = () => {
                     <Menu/>
                 </Button>
             </SheetTrigger>
-            <SheetContent side='left' className="p-0" suppressHydrationWarning>
+            <SheetContent side='left' className="p-0" style={{backgroundColor:'#111827'}}>
                 <Sidebar/>
             </SheetContent>
         </Sheet>
