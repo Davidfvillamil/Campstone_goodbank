@@ -6,6 +6,19 @@ import { getFirestore, doc, getDoc, updateDoc } from 'firebase/firestore';
 import firebaseConfig from "@/lib/firebaseConfig";
 import { initializeApp } from 'firebase/app';
 
+
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+
 const app = initializeApp(firebaseConfig);
 const firestore = getFirestore(app);
 
@@ -66,26 +79,34 @@ export default function Deposit() {
     }
   };
 
+  const [showAlertDialog, setShowAlertDialog] = useState(false);
+
   return (
-    <>
-      <div>
-        <div className="mb-8 space-y-4">
-          <h2 className="text-2xl md:text-4xl font-bold text-center">
-            Esta es la página de Depósito
-          </h2>
-        </div>
+    <div className="max-w-screen-md mx-auto p-4">
+      <div className="mb-8 space-y-4">
+        <h2 className="text-2xl md:text-4xl font-bold text-center">
+          Esta es la página de Depósito
+        </h2>
       </div>
 
       {/* Campo de entrada para el monto del depósito */}
       <input
+        className="w-full p-2 border rounded-md mb-4"
         type="number"
+        placeholder="Ingrese el monto del depósito"
         value={depositAmount}
         onChange={(e) => setDepositAmount(e.target.value)}
       />
 
       {/* Botón para realizar el depósito */}
-      <Button onClick={handleDeposit}>Deposit</Button>
-      <h2>{errorMessageNegativeValue}</h2>
-    </>
+      <Button
+        className="bg-green-500 hover:bg-green-600 text-white w-full py-2 rounded-md"
+        onClick={handleDeposit}
+      >
+        Depositar
+      </Button>
+      <h2 className="text-red-500 mt-2">{errorMessageNegativeValue}</h2>
+      
+    </div>
   );
 }
