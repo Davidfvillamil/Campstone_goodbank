@@ -1,11 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react';
-import { useAuth } from '@clerk/nextjs';
 import { useUser } from "@clerk/nextjs";
 import { initializeApp } from 'firebase/app';
-import {Button} from '@/components/ui/button';
-import Link from 'next/link';
 import firebaseConfig from '../../../../lib/firebaseConfig';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import { collection, setDoc } from "firebase/firestore"; 
@@ -55,7 +52,9 @@ export default function DashboardPage() {
     };
 
     addUserToFirestore(); // Llama a la función para agregar usuario a Firestore
-  }, [isLoaded, isSignedIn, user]);
+  }, [isLoaded, isSignedIn, user, userBalance]);
+
+
   return (
     <>
       <div>
