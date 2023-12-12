@@ -1,3 +1,6 @@
+import { Button } from "@/components/ui/button";
+import firebaseConfig from "@/lib/firebaseConfig";
+
 
 export default function Deposit() {
     return (
@@ -9,6 +12,9 @@ export default function Deposit() {
             </h2>
           </div> 
         </div>
+
+        <input type="number" />
+        <Button>Deposit</Button>
       </>
     )
 }
