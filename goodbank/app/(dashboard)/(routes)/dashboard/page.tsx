@@ -38,7 +38,7 @@ export default function DashboardPage() {
               Name: user.fullName,
               Id: user.id,
               Balance: 0,
-              allData: [] // Puedes establecer el balance inicial u otros campos según tu lógica
+              allData: [] 
             });
             console.log(`Usuario ${user.fullName} agregado a Firestore.`);
           } else {
