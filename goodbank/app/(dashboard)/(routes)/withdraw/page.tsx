@@ -30,13 +30,26 @@ export default function Withdraw() {
         // Sumar el valor del depósito al balance actual
         const currentBalance = userData.Balance || 0;
         const withdrawValue = parseFloat(withdrawAmount);
+        const currentTransaccions = userData.allData || []
 
         if (!isNaN(withdrawValue) && withdrawValue > 0 && withdrawValue < userData.Balance) {
           setErrorWithdrawGreaterThanBalance('')
 
           const newBalance = currentBalance - withdrawValue;
+          const newTransaction = {
+            Type:'Withdraw',
+            Amount:withdrawValue, 
+            Balance_update: newBalance
+          }
+
+          //Estrucutra de la actualización de los datos de firebase
+          const updatedUserData = {
+            ...userData,
+            Balance: newBalance,
+            allData: [...currentTransaccions, newTransaction],
+          };
           // Actualizar el documento del usuario en Firestore con el nuevo balance
-          await updateDoc(userDocRef, { Balance: newBalance });
+          await updateDoc(userDocRef, updatedUserData);
 
           // Actualizar el estado local para reflejar el nuevo balance en la interfaz
           setWithdrawAmount('');

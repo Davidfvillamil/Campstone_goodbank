@@ -37,7 +37,8 @@ export default function DashboardPage() {
             await setDoc(userDocRef, {
               Name: user.fullName,
               Id: user.id,
-              Balance: 0, // Puedes establecer el balance inicial u otros campos según tu lógica
+              Balance: 0,
+              allData: [] // Puedes establecer el balance inicial u otros campos según tu lógica
             });
             console.log(`Usuario ${user.fullName} agregado a Firestore.`);
           } else {

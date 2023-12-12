@@ -31,13 +31,26 @@ export default function Deposit() {
         // Sumar el valor del depósito al balance actual
         const currentBalance = userData.Balance || 0;
         const depositValue = parseFloat(depositAmount);
+        const currentTransaccions = userData.allData || []
 
         if (!isNaN(depositValue) && depositValue > 0) {
           const newBalance = currentBalance + depositValue;
+          const newTransaction = {
+            Type:'Deposit',
+            Amount:depositValue, 
+            Balance_update: newBalance
+          }
+
+          const updatedUserData = {
+            ...userData,
+            Balance: newBalance,
+            allData: [...currentTransaccions, newTransaction],
+          };
+          
           setErrorMessageNegativeValue('')
           // Actualizar el documento del usuario en Firestore con el nuevo balance
-          await updateDoc(userDocRef, { Balance: newBalance });
-
+          await updateDoc(userDocRef, updatedUserData);
+          
           // Actualizar el estado local para reflejar el nuevo balance en la interfaz
           setDepositAmount('');
           
