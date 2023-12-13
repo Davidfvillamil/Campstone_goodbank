@@ -37,16 +37,16 @@ export default function Balance() {
     fetchBalance(); // Llama a la función para obtener el balance del usuario
   }, [isLoaded, isSignedIn, user]);
   
-    return (
-      <>
-        <div>
-          <div className="mb-8 space-y-4">
-            <h2 className="text-2xl md:text-4xl font-bold text-center">
-              Esta es la pagina de Balance
-            </h2>
-            <h1>Tu balance es de {userBalance}</h1>
-          </div> 
-        </div>
-      </>
-    )
+  return (
+    <div className="max-w-screen-md mx-auto p-4">
+      <div className="mb-8 space-y-4">
+        <h2 className="text-2xl md:text-4xl font-bold text-center">
+          Esta es la página de Balance
+        </h2>
+        <h1 className="text-green-500 text-4xl font-bold text-center">
+          Tu balance es de {userBalance}
+        </h1>
+      </div>
+    </div>
+  );
   }

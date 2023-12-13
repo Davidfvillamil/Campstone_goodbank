@@ -32,49 +32,59 @@ export function DataTable<TData, TValue>({
   })
 
   return (
-    <div className="rounded-md border">
-      <Table>
-        <TableHeader>
+    <div className="overflow-x-auto my-4 mx-2">
+      <table className="min-w-full divide-y divide-gray-200">
+        <thead>
           {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
-                return (
-                  <TableHead key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                  </TableHead>
-                )
-              })}
-            </TableRow>
+            <tr key={headerGroup.id}>
+              {headerGroup.headers.map((header) => (
+                <th
+                  key={header.id}
+                  className="py-2 px-4 bg-gray-100 text-left text-sm font-semibold"
+                >
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                </th>
+              ))}
+            </tr>
           ))}
-        </TableHeader>
-        <TableBody>
+        </thead>
+        <tbody>
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
-              <TableRow
+              <tr
                 key={row.id}
-                data-state={row.getIsSelected() && "selected"}
+                className={`${
+                  row.getIsSelected() ? 'bg-blue-100' : ''
+                } hover:bg-blue-50`}
               >
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
+                  <td
+                    key={cell.id}
+                    className="py-2 px-4 border-b border-gray-200"
+                  >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
+                  </td>
                 ))}
-              </TableRow>
+              </tr>
             ))
           ) : (
-            <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
+            <tr>
+              <td
+                colSpan={columns.length}
+                className="py-4 text-center text-gray-500"
+              >
                 No results.
-              </TableCell>
-            </TableRow>
+              </td>
+            </tr>
           )}
-        </TableBody>
-      </Table>
+        </tbody>
+      </table>
     </div>
   )
 }
+

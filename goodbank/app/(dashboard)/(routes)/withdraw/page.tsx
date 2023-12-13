@@ -69,24 +69,29 @@ export default function Withdraw() {
     }
   }
 
-    return (
-      <>
-        <div>
-          <div className="mb-8 space-y-4">
-            <h2 className="text-2xl md:text-4xl font-bold text-center">
-              Esta es la pagina de Withdraw
-            </h2>
-          </div> 
-        </div>
+  return (
+    <div className="max-w-screen-md mx-auto p-4">
+      <div className="mb-8 space-y-4">
+        <h2 className="text-2xl md:text-4xl font-bold text-center">
+          Esta es la página de Retiro
+        </h2>
+      </div>
 
-       <input 
-          type="number"
-          value={withdrawAmount}
-          onChange={(e) => setWithdrawAmount(e.target.value)}
-       /> 
+      <input
+        className="w-full p-2 border rounded-md mb-4"
+        type="number"
+        placeholder="Ingrese el monto del retiro"
+        value={withdrawAmount}
+        onChange={(e) => setWithdrawAmount(e.target.value)}
+      />
 
-        <Button onClick={handleWithdraw}>Deposit</Button>
-        <h2>{errorWithdrawGreaterThanBalance}</h2>
-      </>
-    )
-  }
+      <Button
+        className="bg-orange-500 hover:bg-orange-600 text-white w-full py-2 rounded-md"
+        onClick={handleWithdraw}
+      >
+        Retirar
+      </Button>
+      <h2 className="text-red-500 mt-2">{errorWithdrawGreaterThanBalance}</h2>
+    </div>
+  );
+}
