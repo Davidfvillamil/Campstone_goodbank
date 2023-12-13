@@ -36,7 +36,7 @@ const LandingHero = () => {
                 Manage your money easyly anytime and anywhere
             </div>
             <div>
-                <Link href = {isSignedIn ? '/dashboard' : '/sing-up'}>
+                <Link href = {isSignedIn ? '/dashboard' : '/create-account'}>
                     <Button variant='premium' className="md:text-lg p-4 md:p-6 rounded-full font-semibold">
                         Create account
                     </Button>
