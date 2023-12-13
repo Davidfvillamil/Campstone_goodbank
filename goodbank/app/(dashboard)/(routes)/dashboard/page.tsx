@@ -9,6 +9,7 @@ import { collection, setDoc } from "firebase/firestore";
 import {LayoutDashboard, Wallet, Banknote,Receipt, FolderSync, ArrowRight} from 'lucide-react'
 import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
 
 // Inicializa la aplicación de Firebase
 const app = initializeApp(firebaseConfig);
@@ -47,6 +48,9 @@ const tools = [
 
 
 export default function DashboardPage() {
+
+  const router = useRouter()
+
   const db = getFirestore(app);
   const usersCollection = collection(db, "Users");
 
@@ -122,6 +126,7 @@ export default function DashboardPage() {
             <Card
               key={tool.href}
               className="p-4 border-black/5 flex items-center justify-between hover:shadow-md transition cursor-pointer mb-8"
+              onClick={() => router.push(tool.href)}
             >
               <div className="flex items-center gap-x-4">
                 <div
