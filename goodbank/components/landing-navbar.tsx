@@ -30,12 +30,21 @@ export const LandingNavbar = () => {
                     GoodBank
                 </h1>
             </Link>
-            <div className="flex items-center gap-x-2">
-                <Link href={isSignedIn ? '/dashboard' : '/create-account'}>
-                    <Button variant='outline' className="rounded-full">
-                        Create account
-                    </Button>
-                </Link>
+            <div className="flex flex-row gap-3">
+                <div className="flex items-center gap-x-2">
+                    <Link href={isSignedIn ? '/dashboard' : '/sign-in'}>
+                        <Button variant='outline' className="rounded-full">
+                            Login
+                        </Button>
+                    </Link>
+                </div>
+                <div className="flex items-center gap-x-2">
+                    <Link href={isSignedIn ? '/dashboard' : '/create-account'}>
+                        <Button variant='outline' className="rounded-full">
+                            Create account
+                        </Button>
+                    </Link>
+                </div>
             </div>
         </nav>
     )
