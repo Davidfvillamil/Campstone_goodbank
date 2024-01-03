@@ -1,13 +1,15 @@
 'use client'
 import Link from 'next/link'
 import Image from 'next/image'
-import {LayoutDashboard, Wallet, Banknote,Receipt, FolderSync} from 'lucide-react'
+import {LayoutDashboard, Wallet, Banknote,Receipt, FolderSync, SendHorizontal, UserRound} from 'lucide-react'
 import { usePathname } from 'next/navigation'
 
 import {Montserrat} from 'next/font/google'
 import { cn } from '@/lib/utils'
 
 const monserrat = Montserrat({weight:'600', subsets:['latin']})
+
+
 
 const routes = [
     {
@@ -35,17 +37,25 @@ const routes = [
         color: 'text-emerald-500'
     },
     {
+        label:'Send Money',
+        icon: SendHorizontal,
+        href: '/sendmoney',
+        color: 'text-blue-500'
+    },
+    {
         label:'All Data',
         icon: FolderSync,
         href: '/alldata',
         color: 'text-pink-500'
     },
     {
-        label:'Send Money',
-        icon: FolderSync,
-        href: '/sendmoney',
-        color: 'text-pink-500'
+        label:'My account',
+        icon: UserRound,
+        href: '/myaccount',
+        color: 'text-indigo-500'
     }
+
+    
 
 ]
 
@@ -84,6 +94,7 @@ const Sidebar = () => {
                     ))}
                 </div>
             </div>
+           
         </div>
     )
 }

@@ -6,7 +6,7 @@ import { initializeApp } from 'firebase/app';
 import firebaseConfig from '../../../../lib/firebaseConfig';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import { collection, setDoc } from "firebase/firestore"; 
-import {LayoutDashboard, Wallet, Banknote,Receipt, FolderSync, ArrowRight} from 'lucide-react'
+import {LayoutDashboard, Wallet, Banknote,Receipt, FolderSync, ArrowRight, SendHorizontal} from 'lucide-react'
 import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
@@ -36,6 +36,13 @@ const tools = [
     color: 'text-emerald-500',
     bgColor: 'text-emerald-500/10',
     href: '/balance'
+  },
+  {
+    label: "I want to send money",
+    icon: SendHorizontal,
+    color: 'text-blue-500',
+    bgColor: 'text-blue-500',
+    href: '/sendmoney'
   },
   {
     label: "See all my transactions",

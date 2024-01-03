@@ -113,12 +113,18 @@ export default function SendMoney() {
       <div className="max-w-screen-md mx-auto p-4">
         {/* Renderiza los elementos de la interfaz para enviar dinero */}
         {/* ... (similar al componente Deposit) */}
+
+        <div className="mb-8 space-y-4">
+            <h2 className="text-2xl md:text-4xl font-bold text-center">
+            Envia dinero con un click!
+            </h2>
+        </div>
   
         {/* Campo de entrada para el ID del destinatario */}
         <input
           className="w-full p-2 border rounded-md mb-4"
           type="text"
-          placeholder="Ingrese el ID del destinatario"
+          placeholder="Ingrese el numero de cuenta del destinatario"
           value={recipientId}
           onChange={(e) => setRecipientId(e.target.value)}
         />
