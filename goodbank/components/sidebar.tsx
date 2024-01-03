@@ -39,6 +39,12 @@ const routes = [
         icon: FolderSync,
         href: '/alldata',
         color: 'text-pink-500'
+    },
+    {
+        label:'Send Money',
+        icon: FolderSync,
+        href: '/sendmoney',
+        color: 'text-pink-500'
     }
 
 ]
