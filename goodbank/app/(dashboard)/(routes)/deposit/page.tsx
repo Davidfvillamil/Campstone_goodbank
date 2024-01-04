@@ -25,6 +25,7 @@ const firestore = getFirestore(app);
 export default function Deposit() {
   const [depositAmount, setDepositAmount] = useState('');
   const [errorMessageNegativeValue,setErrorMessageNegativeValue] = useState('')
+  const [successMessage,setSuccessMessage] = useState('')
   const { user } = useUser();
 
   const handleDeposit = async () => {
@@ -61,6 +62,10 @@ export default function Deposit() {
           };
           
           setErrorMessageNegativeValue('')
+          setSuccessMessage('Deposit Success!')
+          setTimeout(() => {
+            setSuccessMessage('')
+          },3000)
           // Actualizar el documento del usuario en Firestore con el nuevo balance
           await updateDoc(userDocRef, updatedUserData);
           
@@ -69,6 +74,7 @@ export default function Deposit() {
           
         } else {
           console.error('Ingresa un valor de depósito válido.');
+          setSuccessMessage('')
           setErrorMessageNegativeValue("You can't deposit negative values")
         }
       } else {
@@ -85,7 +91,7 @@ export default function Deposit() {
     <div className="max-w-screen-md mx-auto p-4">
       <div className="mb-8 space-y-4">
         <h2 className="text-2xl md:text-4xl font-bold text-center">
-          Esta es la página de Depósito
+          Deposita dinero con un click!
         </h2>
       </div>
 
@@ -106,7 +112,7 @@ export default function Deposit() {
         Depositar
       </Button>
       <h2 className="text-red-500 mt-2">{errorMessageNegativeValue}</h2>
-      
+      <h2 className="text-green-500 mt-2">{successMessage}</h2>
     </div>
   );
 }

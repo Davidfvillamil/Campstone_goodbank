@@ -41,10 +41,10 @@ export default function Balance() {
     <div className="max-w-screen-md mx-auto p-4">
       <div className="mb-8 space-y-4">
         <h2 className="text-2xl md:text-4xl font-bold text-center">
-          Esta es la página de Balance
+          Tu saldo en cuenta es de: 
         </h2>
         <h1 className="text-green-500 text-4xl font-bold text-center">
-          Tu balance es de {userBalance}
+           $ {userBalance}
         </h1>
       </div>
     </div>

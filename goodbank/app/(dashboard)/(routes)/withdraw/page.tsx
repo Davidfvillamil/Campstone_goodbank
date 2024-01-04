@@ -13,6 +13,7 @@ export default function Withdraw() {
 
   const [withdrawAmount, setWithdrawAmount] = useState('');
   const [errorWithdrawGreaterThanBalance, setErrorWithdrawGreaterThanBalance] = useState('')
+  const [successMessage,setSuccessMessage] = useState('')
   const { user } = useUser();
 
   const handleWithdraw = async () => {
@@ -48,6 +49,11 @@ export default function Withdraw() {
             Balance: newBalance,
             allData: [...currentTransaccions, newTransaction],
           };
+
+          setSuccessMessage('Withdraw Succed')
+          setTimeout(() => {
+            setSuccessMessage('')
+          },3000)
           // Actualizar el documento del usuario en Firestore con el nuevo balance
           await updateDoc(userDocRef, updatedUserData);
 
@@ -56,6 +62,7 @@ export default function Withdraw() {
           
         } else if(!isNaN(withdrawValue) && withdrawValue > userData.Balance){
           setErrorWithdrawGreaterThanBalance('The amount exceds the money in your account')
+          setSuccessMessage('')
         }else{
           setErrorWithdrawGreaterThanBalance("You can't input negative values")
 
@@ -73,7 +80,7 @@ export default function Withdraw() {
     <div className="max-w-screen-md mx-auto p-4">
       <div className="mb-8 space-y-4">
         <h2 className="text-2xl md:text-4xl font-bold text-center">
-          Esta es la página de Retiro
+          Retira dinero con un click!
         </h2>
       </div>
 
@@ -92,6 +99,7 @@ export default function Withdraw() {
         Retirar
       </Button>
       <h2 className="text-red-500 mt-2">{errorWithdrawGreaterThanBalance}</h2>
+      <h2 className="text-green-500 mt-2">{successMessage}</h2>
     </div>
   );
 }

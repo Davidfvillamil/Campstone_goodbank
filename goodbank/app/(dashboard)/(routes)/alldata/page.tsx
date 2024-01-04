@@ -54,7 +54,7 @@ export default function AllData() {
       <div>
         <div className="mb-8 space-y-4">
           <h2 className="text-2xl md:text-4xl font-bold text-center">
-            Esta es la pagina del historial de transacciones
+            Transacciones historicas
           </h2>
           
         </div>
