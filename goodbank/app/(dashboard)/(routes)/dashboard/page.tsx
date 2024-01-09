@@ -64,7 +64,7 @@ export default function DashboardPage() {
   const { isSignedIn, user, isLoaded } = useUser();
   const [userName, setUserName] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
-  const [userBalance, setUserBalance] = useState<number | null>(null);
+  const [userBalance, setUserBalance] = useState<number | 0>(0);
 
   useEffect(() => {
     const addUserToFirestore = async () => {
@@ -117,9 +117,9 @@ export default function DashboardPage() {
                 Account Summary
               </h1>
               <div className="mb-3">
-                <span className="text-gray-500">Tu balance es:</span>{" "}
+                <span className="text-gray-500">Your balance is:</span>{" "}
                 <span className="text-emerald-600 text-2xl font-bold">
-                  {userBalance}
+                  {userBalance.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
                 </span>
               </div>
               

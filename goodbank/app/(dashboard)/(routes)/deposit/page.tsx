@@ -96,7 +96,7 @@ export default function Deposit() {
     <div className="max-w-screen-md mx-auto p-4">
       <div className="mb-8 space-y-4">
         <h2 className="text-2xl md:text-4xl font-bold text-center">
-          Deposit money as easy as breathing!
+          Deposit money with one click!
         </h2>
       </div>
 
@@ -104,7 +104,7 @@ export default function Deposit() {
       <input
         className="w-full p-2 border rounded-md mb-4"
         type="number"
-        placeholder="Ingrese el monto del depósito"
+        placeholder="Enter the amount to be deposited"
         value={depositAmount}
         onChange={(e) => setDepositAmount(e.target.value)}
       />

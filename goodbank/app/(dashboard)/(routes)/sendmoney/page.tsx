@@ -116,7 +116,7 @@ export default function SendMoney() {
 
         <div className="mb-8 space-y-4">
             <h2 className="text-2xl md:text-4xl font-bold text-center">
-            Envia dinero con un click!
+              Send money instantly with one click!
             </h2>
         </div>
   
@@ -124,7 +124,7 @@ export default function SendMoney() {
         <input
           className="w-full p-2 border rounded-md mb-4"
           type="text"
-          placeholder="Ingrese el numero de cuenta del destinatario"
+          placeholder="Enter the recipient's account number"
           value={recipientId}
           onChange={(e) => setRecipientId(e.target.value)}
         />
@@ -133,7 +133,7 @@ export default function SendMoney() {
         <input
           className="w-full p-2 border rounded-md mb-4"
           type="number"
-          placeholder="Ingrese el monto a enviar"
+          placeholder="Enter the amount to be sent"
           value={amountToSend}
           onChange={(e) => setAmountToSend(e.target.value)}
         />
@@ -143,7 +143,7 @@ export default function SendMoney() {
           className="bg-blue-500 hover:bg-blue-600 text-white w-full py-2 rounded-md"
           onClick={handleSendMoney}
         >
-          Enviar Dinero
+          Send Money
         </Button>
   
         {/* Mensaje de error en caso de problemas */}

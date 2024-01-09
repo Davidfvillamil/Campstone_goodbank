@@ -103,7 +103,7 @@ export default function Withdraw() {
       <input
         className="w-full p-2 border rounded-md mb-4"
         type="number"
-        placeholder="Ingrese el monto del retiro"
+        placeholder="Enter the amount to be withdrawn"
         value={withdrawAmount}
         onChange={(e) => setWithdrawAmount(e.target.value)}
       />

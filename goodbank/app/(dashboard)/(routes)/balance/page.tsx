@@ -11,7 +11,7 @@ const firestore = getFirestore(app);
 export default function Balance() {
 
   const { user, isSignedIn, isLoaded } = useUser();
-  const [userBalance, setUserBalance] = useState<number | null>(null);
+  const [userBalance, setUserBalance] = useState<number | 0>(0);
 
   useEffect(() => {
     const fetchBalance = async () => {
@@ -41,10 +41,10 @@ export default function Balance() {
     <div className="max-w-screen-md mx-auto p-4">
       <div className="mb-8 space-y-4">
         <h2 className="text-2xl md:text-4xl font-bold text-center">
-          Tu saldo en cuenta es de: 
+          Your Balance is: 
         </h2>
         <h1 className="text-green-500 text-4xl font-bold text-center">
-           $ {userBalance}
+           $US {userBalance.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
         </h1>
       </div>
     </div>
