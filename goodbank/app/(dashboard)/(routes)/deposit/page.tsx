@@ -152,7 +152,6 @@ export default function Deposit() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-
       
     </div>
   );

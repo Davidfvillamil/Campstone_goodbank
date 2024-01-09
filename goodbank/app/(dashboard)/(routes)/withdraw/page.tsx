@@ -9,11 +9,24 @@ import { initializeApp } from 'firebase/app';
 const app = initializeApp(firebaseConfig);
 const firestore = getFirestore(app);
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+
 export default function Withdraw() {
 
   const [withdrawAmount, setWithdrawAmount] = useState('');
   const [errorWithdrawGreaterThanBalance, setErrorWithdrawGreaterThanBalance] = useState('')
   const [successMessage,setSuccessMessage] = useState('')
+  const [showAlertMessage,setShowAlertMessage] = useState('')
   const { user } = useUser();
 
   const handleWithdraw = async () => {
@@ -51,6 +64,7 @@ export default function Withdraw() {
           };
 
           setSuccessMessage('Withdraw Succed')
+          setShowAlertMessage('success')
           setTimeout(() => {
             setSuccessMessage('')
           },3000)
@@ -63,12 +77,14 @@ export default function Withdraw() {
         } else if(!isNaN(withdrawValue) && withdrawValue > userData.Balance){
           setErrorWithdrawGreaterThanBalance('The amount exceds the money in your account')
           setSuccessMessage('')
+          setShowAlertMessage('Withdraw exced')
         }else{
           setErrorWithdrawGreaterThanBalance("You can't input negative values")
-
+          setShowAlertMessage('error')
         }
       } else {
         console.error('El documento del usuario no existe.');
+
       }
 
     }catch{
@@ -80,7 +96,7 @@ export default function Withdraw() {
     <div className="max-w-screen-md mx-auto p-4">
       <div className="mb-8 space-y-4">
         <h2 className="text-2xl md:text-4xl font-bold text-center">
-          Retira dinero con un click!
+          Withdraw Money with only one click
         </h2>
       </div>
 
@@ -92,14 +108,54 @@ export default function Withdraw() {
         onChange={(e) => setWithdrawAmount(e.target.value)}
       />
 
-      <Button
-        className="bg-orange-500 hover:bg-orange-600 text-white w-full py-2 rounded-md"
-        onClick={handleWithdraw}
-      >
-        Retirar
-      </Button>
-      <h2 className="text-red-500 mt-2">{errorWithdrawGreaterThanBalance}</h2>
-      <h2 className="text-green-500 mt-2">{successMessage}</h2>
+      
+
+      <AlertDialog>
+          <AlertDialogTrigger className="bg-orange-500 hover:bg-orange-600 text-white w-full py-2 rounded-md">
+            <Button
+              className="bg-orange-500 hover:bg-orange-600 text-white w-full py-2 rounded-md"
+              onClick={handleWithdraw}
+            >
+              Withdraw
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>
+                {showAlertMessage === 'success'
+                  ? 'Withdraw Success!'
+                  : showAlertMessage === 'Withdraw exced'
+                  ? 'Error: Withdraw error!'
+                  : showAlertMessage === 'error'
+                  ? 'Withdraw Error!'
+                  : ''
+                }
+              </AlertDialogTitle>
+              <AlertDialogDescription>
+                {showAlertMessage === 'success'
+                  ? 'You have successfully withdraw money. Click continue to keep using your app'
+                  : showAlertMessage === 'Withdraw exced'
+                  ? 'The seleceted amount exceds the total amount in account. Select a fewer value to continue this transaction'
+                  : showAlertMessage === 'error'
+                  ? 'Remeber to no include negative numbers on the input field'
+                  : ''
+                }
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogAction>
+              <Button
+                  onClick={() => {
+                    setShowAlertMessage(''); // Limpiar el estado aquí
+                  }}
+                >
+                  Continue
+                </Button>
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+      </AlertDialog>
+      
     </div>
   );
 }
