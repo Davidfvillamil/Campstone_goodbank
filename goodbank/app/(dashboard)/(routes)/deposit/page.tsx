@@ -67,8 +67,8 @@ export default function Deposit() {
           setShowAlertMessage('success')
           setTimeout(() => {
             setSuccessMessage('')
-            setShowAlertMessage('')
-          },300000)
+            
+          },3000)
           // Actualizar el documento del usuario en Firestore con el nuevo balance
           await updateDoc(userDocRef, updatedUserData);
           
@@ -80,9 +80,7 @@ export default function Deposit() {
           setSuccessMessage('')
           setErrorMessageNegativeValue("You can't deposit negative values")
           setShowAlertMessage('error')
-          setTimeout(() => {
-            setShowAlertMessage('')
-          },3000)
+          
         }
       } else {
         console.error('El documento del usuario no existe.');
@@ -127,22 +125,35 @@ export default function Deposit() {
             <AlertDialogTitle>
               {showAlertMessage === 'success'
                 ? 'Deposit Success!'
-                : 'Error: Invalid deposit value'
+                : showAlertMessage === 'error'
+                ? 'Error: Invalid deposit value'
+                : ''
               }
             </AlertDialogTitle>
             <AlertDialogDescription>
               {showAlertMessage === 'success'
                 ? 'You have successfully deposit money. Click continue to keep using your app'
-                : 'Remember not to include negative numbers o leters on the input field'
+                : showAlertMessage === 'error'
+                ? 'Remember not to include negative numbers o leters on the input field'
+                : ''
               }
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            
-            <AlertDialogAction>Continue</AlertDialogAction>
+            <AlertDialogAction>
+            <Button
+                onClick={() => {
+                  setShowAlertMessage(''); // Limpiar el estado aquí
+                }}
+              >
+                Continue
+              </Button>
+            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      
     </div>
   );
    
