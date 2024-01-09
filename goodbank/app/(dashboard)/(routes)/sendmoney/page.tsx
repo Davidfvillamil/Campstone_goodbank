@@ -181,7 +181,7 @@ export default function SendMoney() {
                   ? 'Transaction Error!'
                   : showAlertMessage === 'error_destinatario'
                   ? 'Transaction Error!'
-                  : ''
+                  : 'Enter values to continue transaction'
                 }
               </AlertDialogTitle>
               <AlertDialogDescription>
