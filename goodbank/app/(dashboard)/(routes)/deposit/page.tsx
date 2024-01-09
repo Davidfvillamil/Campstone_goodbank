@@ -26,6 +26,7 @@ export default function Deposit() {
   const [depositAmount, setDepositAmount] = useState('');
   const [errorMessageNegativeValue,setErrorMessageNegativeValue] = useState('')
   const [successMessage,setSuccessMessage] = useState('')
+  const [showAlertMessage,setShowAlertMessage] = useState('')
   const { user } = useUser();
 
   const handleDeposit = async () => {
@@ -63,9 +64,11 @@ export default function Deposit() {
           
           setErrorMessageNegativeValue('')
           setSuccessMessage('Deposit Success!')
+          setShowAlertMessage('success')
           setTimeout(() => {
             setSuccessMessage('')
-          },3000)
+            setShowAlertMessage('')
+          },300000)
           // Actualizar el documento del usuario en Firestore con el nuevo balance
           await updateDoc(userDocRef, updatedUserData);
           
@@ -76,6 +79,10 @@ export default function Deposit() {
           console.error('Ingresa un valor de depósito válido.');
           setSuccessMessage('')
           setErrorMessageNegativeValue("You can't deposit negative values")
+          setShowAlertMessage('error')
+          setTimeout(() => {
+            setShowAlertMessage('')
+          },3000)
         }
       } else {
         console.error('El documento del usuario no existe.');
@@ -91,7 +98,7 @@ export default function Deposit() {
     <div className="max-w-screen-md mx-auto p-4">
       <div className="mb-8 space-y-4">
         <h2 className="text-2xl md:text-4xl font-bold text-center">
-          Deposita dinero con un click!
+          Deposit money as easy as breathing!
         </h2>
       </div>
 
@@ -105,14 +112,38 @@ export default function Deposit() {
       />
 
       {/* Botón para realizar el depósito */}
-      <Button
-        className="bg-green-500 hover:bg-green-600 text-white w-full py-2 rounded-md"
-        onClick={handleDeposit}
-      >
-        Depositar
-      </Button>
-      <h2 className="text-red-500 mt-2">{errorMessageNegativeValue}</h2>
-      <h2 className="text-green-500 mt-2">{successMessage}</h2>
+
+      <AlertDialog>
+        <AlertDialogTrigger className="bg-green-500 hover:bg-green-600 text-white w-full py-2 rounded-md">
+          <Button
+            className="bg-green-500 hover:bg-green-600 text-white w-full py-2 rounded-md"
+            onClick={handleDeposit}
+          >
+            Depositar
+          </Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>
+              {showAlertMessage === 'success'
+                ? 'Deposit Success!'
+                : 'Error: Invalid deposit value'
+              }
+            </AlertDialogTitle>
+            <AlertDialogDescription>
+              {showAlertMessage === 'success'
+                ? 'You have successfully deposit money. Click continue to keep using your app'
+                : 'Remember not to include negative numbers o leters on the input field'
+              }
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            
+            <AlertDialogAction>Continue</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
+   
 }
