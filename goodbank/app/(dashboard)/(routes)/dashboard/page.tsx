@@ -127,7 +127,7 @@ export default function DashboardPage() {
     <div>
        {showAccountCreatedMessage && (
         <div className="bg-green-500 text-white p-4 rounded-md">
-          Account created successfully! You can now use the dashboard.
+          Account created successfully! You can now use goodbank services
         </div>
       )}
     </div>
