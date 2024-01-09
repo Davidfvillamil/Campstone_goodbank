@@ -10,12 +10,24 @@ import { initializeApp } from 'firebase/app';
 const app = initializeApp(firebaseConfig);
 const firestore = getFirestore(app);
 
-// Importa las bibliotecas y componentes necesarios
+
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 export default function SendMoney() {
     const [recipientId, setRecipientId] = useState('');
     const [amountToSend, setAmountToSend] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [showAlertMessage,setShowAlertMessage] = useState('')
     const { user } = useUser();
   
     const handleSendMoney = async () => {
@@ -36,6 +48,7 @@ export default function SendMoney() {
         const amount = parseFloat(amountToSend);
         if (isNaN(amount) || amount <= 0) {
           setErrorMessage('Ingresa un monto válido.');
+          setShowAlertMessage('error_valor_invalido')
           return;
         }
   
@@ -50,6 +63,7 @@ export default function SendMoney() {
           const currentBalance = userData.Balance || 0;
           if (amount > currentBalance) {
             setErrorMessage('Fondos insuficientes para realizar la transferencia.');
+            setShowAlertMessage('fondos_insuficientes')
             return;
           }
   
@@ -98,8 +112,10 @@ export default function SendMoney() {
             setRecipientId('');
             setAmountToSend('');
             setErrorMessage('');
+            setShowAlertMessage('success')
             } else {
             setErrorMessage('El destinatario no existe.');
+            setShowAlertMessage('error_destinatario')
           }
         } else {
           console.error('El documento del usuario no existe.');
@@ -139,15 +155,61 @@ export default function SendMoney() {
         />
   
         {/* Botón para enviar dinero */}
-        <Button
-          className="bg-blue-500 hover:bg-blue-600 text-white w-full py-2 rounded-md"
-          onClick={handleSendMoney}
-        >
-          Send Money
-        </Button>
+        
   
-        {/* Mensaje de error en caso de problemas */}
+        {/* Mensaje de error en caso de problemas 
         <h2 className="text-red-500 mt-2">{errorMessage}</h2>
+        */}
+
+        <AlertDialog>
+          <AlertDialogTrigger className="bg-blue-500 hover:bg-blue-600 text-white w-full py-2 rounded-md">
+            <Button
+              className="bg-blue-500 hover:bg-blue-600 text-white w-full py-2 rounded-md"
+              onClick={handleSendMoney}
+              >
+              Send Money
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>
+                {showAlertMessage === 'success'
+                  ? 'Money Successfully transfered!'
+                  : showAlertMessage === 'fondos_insuficientes'
+                  ? 'Transaction Error!'
+                  : showAlertMessage === 'error_valor_invalido'
+                  ? 'Transaction Error!'
+                  : showAlertMessage === 'error_destinatario'
+                  ? 'Transaction Error!'
+                  : ''
+                }
+              </AlertDialogTitle>
+              <AlertDialogDescription>
+                {showAlertMessage === 'success'
+                  ? ' You have successfully transfered the amount. Click continue to make another transaction'
+                  : showAlertMessage === 'fondos_insuficientes'
+                  ? 'The amount exceds the amount of money in your account. tranfer a smaller amount'
+                  : showAlertMessage === 'error_valor_invalido'
+                  ? 'Rember not include negative numbers and fill in the input field with a number before you hit click'
+                  : showAlertMessage === 'error_destinatario'
+                  ? 'This account number does not exit. Make sure you input an existing account number'
+                  : ''
+                }
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogAction>
+              <Button
+                  onClick={() => {
+                    setShowAlertMessage(''); // Limpiar el estado aquí
+                  }}
+                >
+                  Continue
+                </Button>
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     );
   }

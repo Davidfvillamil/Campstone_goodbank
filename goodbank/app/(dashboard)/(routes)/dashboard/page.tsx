@@ -14,6 +14,9 @@ import { useRouter } from 'next/navigation';
 // Inicializa la aplicación de Firebase
 const app = initializeApp(firebaseConfig);
 
+
+
+
 //arreglo re rutas
 const tools = [
   {
@@ -53,6 +56,18 @@ const tools = [
   }
 ]
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+
 
 export default function DashboardPage() {
 
@@ -65,6 +80,7 @@ export default function DashboardPage() {
   const [userName, setUserName] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
   const [userBalance, setUserBalance] = useState<number | 0>(0);
+  const [showAccountCreatedMessage, setShowAccountCreatedMessage] = useState(false);
 
   useEffect(() => {
     const addUserToFirestore = async () => {
@@ -87,6 +103,10 @@ export default function DashboardPage() {
               allData: [] 
             });
             console.log(`Usuario ${user.fullName} agregado a Firestore.`);
+            setShowAccountCreatedMessage(true);
+            setTimeout(() => {
+              setShowAccountCreatedMessage(false)
+            },4000)
           } else {
             console.log(`Usuario ${user.fullName} ya existe en Firestore.`);
             const userData = userDocSnapshot.data();
@@ -103,6 +123,15 @@ export default function DashboardPage() {
 
 
   return (
+    <>
+    <div>
+       {showAccountCreatedMessage && (
+        <div className="bg-green-500 text-white p-4 rounded-md">
+          Account created successfully! You can now use the dashboard.
+        </div>
+      )}
+    </div>
+
     <div className="mb-8 space-y-4">
       <h2 className="text-2xl md:text-4xl font-bold text-center">
         Welcome {userName}
@@ -150,7 +179,9 @@ export default function DashboardPage() {
           ))}
         </div>
       </div>
+     
     </div>
+    </>
   );
 }
 
